@@ -1,7 +1,6 @@
 {
-  "name": "react-ts-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "6mx-react-ts-cli",
+  "version": "1.0.0",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -10,6 +9,11 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "chalk": "^4.1.2",
+    "commander": "^8.1.0",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^8.1.2",
+    "ora": "^5.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -52,5 +56,8 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,tsx}": "prettier --write"
+  },
+  "bin": {
+    "6mx-react-ts-cli": "bin/index.js"
   }
 }
