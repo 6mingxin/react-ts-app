@@ -7,11 +7,11 @@ module.exports = {
       name: "type",
       choices: [
         {
-          name: "6mx-react-ts模板",
+          name: "6mx-react-ts-cli前端框架",
           value: {
-            url: "https://github.com/6mingxin/react-ts-app.git", //框架git仓库
-            gitName: "6mx-react-ts",
-            val: "6mx-react-ts模板",
+            url: "https://github.com.cnpmjs.org/6mingxin/react-ts-app.git", //框架git仓库
+            gitName: "react-ts-app ",
+            val: "react-ts模板",
           },
         },
       ],
