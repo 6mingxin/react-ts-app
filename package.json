@@ -1,7 +1,6 @@
 {
-  "name": "react-ts-app",
+  "name": "6mx-react-ts",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -21,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "json-server": "json-server __json_server_mock__/db.json --watch"
   },
   "eslintConfig": {
     "extends": [
@@ -52,5 +51,9 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,tsx}": "prettier --write"
-  }
+  },
+  "files": [
+    "template.json",
+    "template"
+  ]
 }
