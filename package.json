@@ -14,6 +14,7 @@
     "download-git-repo": "^3.0.2",
     "inquirer": "^8.1.2",
     "ora": "^5.4.1",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -25,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server __json_server_mock__/db.json --watch"
+    "json-server": "json-server __json_server_mock__/db.json --watch --port 3001"
   },
   "eslintConfig": {
     "extends": [
@@ -57,5 +58,4 @@
   "lint-staged": {
     "*.{js,css,md,ts,tsx}": "prettier --write"
   }
-
 }
