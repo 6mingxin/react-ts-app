@@ -42,7 +42,7 @@ export const useMount = (callback: () => void) => {
  * @param delay
  * @returns {unknown}
  */
-export const useDebounce = (value: unknown, delay?: number): any => {
+export const useDebounce = <T>(value: T, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
@@ -53,4 +53,19 @@ export const useDebounce = (value: unknown, delay?: number): any => {
   }, [value, delay]);
 
   return debouncedValue;
+};
+
+export const useArray = <T>(initialArray: Array<T>) => {
+  const [value, setValue] = useState(initialArray);
+
+  return {
+    value,
+    clear: () => setValue([]),
+    removeIndex: (index: number) => {
+      let data = [...value];
+      data.splice(index, 1);
+      setValue(data);
+    },
+    add: (addValue: T) => setValue([...value, addValue]),
+  };
 };
