@@ -6,18 +6,22 @@ import { useEffect, useState } from "react";
  * @param value
  * @returns {boolean|boolean}
  */
-export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 /**
  * 清楚值为空的对象的key
  * @param object
  * @returns {*}
  */
-export const cleanObject = (object) => {
+export const cleanObject = <T>(object: T): T => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
+    // @ts-ignore
     const value = result[key];
-    if (isFalsy(value)) delete result[key];
+    if (isFalsy(value)) {
+      // @ts-ignore
+      delete result[key];
+    }
   });
   return result;
 };
@@ -26,7 +30,7 @@ export const cleanObject = (object) => {
  * 用作只执行一次的hook
  * @param callback
  */
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
   }, []);
@@ -38,7 +42,7 @@ export const useMount = (callback) => {
  * @param delay
  * @returns {unknown}
  */
-export const useDebounce = (value, delay) => {
+export const useDebounce = (value: any, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
