@@ -4,6 +4,7 @@ import { List } from "./list";
 import { useEffect, useState } from "react";
 import qs from "qs";
 import { cleanObject, useDebounce, useMount } from "../../utils";
+import { useHttp } from "utils/http";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 export const ProjectListScreen = () => {
@@ -13,26 +14,17 @@ export const ProjectListScreen = () => {
     personId: "",
   });
   const [list, setList] = useState([]);
+  const paramDebounce = useDebounce(param, 200);
+  const client = useHttp();
 
-  let paramDebounce = useDebounce(param, 200);
   //当每一次param改变的时候都重新请求一遍projects中的数据
   useEffect(() => {
-    fetch(
-      `${apiUrl}/projects?${qs.stringify(cleanObject(paramDebounce))}`
-    ).then(async (res) => {
-      if (res.ok) {
-        setList(await res.json());
-      }
-    });
+    client("projects", { data: cleanObject(paramDebounce) }).then(setList);
   }, [paramDebounce]);
 
   //页面加载完成请求users,自定义hook
   useMount(() => {
-    fetch(`${apiUrl}/users`).then(async (res) => {
-      if (res.ok) {
-        setUsers(await res.json());
-      }
-    });
+    client("users").then(setUsers);
   });
 
   return (
