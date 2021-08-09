@@ -16,6 +16,7 @@
     "chalk": "^4.1.2",
     "commander": "^8.1.0",
     "craco-less": "^1.18.0",
+    "dayjs": "^1.10.6",
     "download-git-repo": "^3.0.2",
     "inquirer": "^8.1.2",
     "jira-dev-tool": "^1.7.61",
