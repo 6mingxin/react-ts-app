@@ -19,6 +19,7 @@ export const ProjectListScreen = () => {
   //当每一次param改变的时候都重新请求一遍projects中的数据
   useEffect(() => {
     client("projects", { data: cleanObject(paramDebounce) }).then(setList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paramDebounce]);
 
   //页面加载完成请求users,自定义hook
