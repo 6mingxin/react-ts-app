@@ -41,6 +41,7 @@ const Background = styled.div`
   background-size: calc(((100vw - 40rem) / 2) - 3.2rem),
     calc(((100vw - 40rem) / 2) - 3.2rem), cover;
   background-image: url(${left}), url(${right});
+  z-index: -1;
 `;
 
 const Header = styled.header`
