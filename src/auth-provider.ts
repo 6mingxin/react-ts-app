@@ -23,7 +23,7 @@ export const login = async (data: { username: string; password: string }) => {
     if (res.ok) {
       return handleUserResponse(await res.json());
     } else {
-      return Promise.reject(data);
+      return Promise.reject(await res.json());
     }
   });
 };
@@ -42,7 +42,7 @@ export const register = async (data: {
     if (res.ok) {
       return handleUserResponse(await res.json());
     } else {
-      return Promise.reject(data);
+      return Promise.reject(await res.json());
     }
   });
 };
