@@ -18,6 +18,7 @@
     "craco-less": "^1.18.0",
     "dayjs": "^1.10.6",
     "download-git-repo": "^3.0.2",
+    "history": "^5.0.1",
     "inquirer": "^8.1.2",
     "jira-dev-tool": "^1.6.59",
     "ora": "^5.4.1",
@@ -26,6 +27,8 @@
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-query": "^3.19.2",
+    "react-router": "^6.0.0-beta.1",
+    "react-router-dom": "^6.0.0-beta.1",
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
