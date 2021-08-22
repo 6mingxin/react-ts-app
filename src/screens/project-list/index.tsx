@@ -7,12 +7,11 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useProject } from "utils/project";
 import { useUsers } from "utils/user";
+import { useUrlQueryParam } from "utils/url";
 
 export const ProjectListScreen = () => {
-  const [param, setParam] = useState({
-    name: "",
-    personId: "",
-  });
+  const [keys] = useState<("name" | "personId")[]>(["name", "personId"]);
+  const [param, setParam] = useUrlQueryParam(keys);
   const paramDebounce = useDebounce(param, 200);
   const { isLoading, error, data: list } = useProject(paramDebounce);
   const { data: users } = useUsers();
@@ -29,6 +28,9 @@ export const ProjectListScreen = () => {
     </Container>
   );
 };
+//跟踪当前组件堆栈信息，解决hook造成的无限渲染问题
+ProjectListScreen.whyDidYouRender = true;
+
 const Container = styled.div`
   padding: 3.2rem;
 `;
