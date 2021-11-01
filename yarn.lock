@@ -7776,7 +7776,7 @@ jest@26.6.0:
     import-local "^3.0.2"
     jest-cli "^26.6.0"
 
-jira-dev-tool@^1.6.13:
+jira-dev-tool@^1.6.59:
   version "1.7.61"
   resolved "https://registry.npmjs.org/jira-dev-tool/-/jira-dev-tool-1.7.61.tgz#32477c1e0f9f9f46ad5ffd61409ac05a1422c17c"
   integrity sha512-ym9L6tQAs7Pi9XrGvoOlz0/dpYR23I2J1C0IDIk3E29YySHwYJ5KWWHZIk9dqiFSkDhfr/ae8CbZBhAbfe8EmQ==
@@ -7785,16 +7785,6 @@ jira-dev-tool@^1.6.13:
     msw "^0.24.1"
     react-query "^2.26.3"
     react-query-devtools "^2.6.3"
-
-jira-dev-tool@^1.6.59:
-  version "1.6.59"
-  resolved "https://registry.npmjs.org/jira-dev-tool/-/jira-dev-tool-1.6.59.tgz#67a98dba9fc9c976d004f3bea1b0349437a0da17"
-  integrity sha512-0LsUIP2qMSRzbnlccWeaWOxuh7zN+SHYarcT/YFQE+1mw9k6jbDNCxlxCjrpKfo/BYF8LWL6pmTSvHfDAS0kGg==
-  dependencies:
-    antd "^4.9.1"
-    jira-dev-tool "^1.6.13"
-    msw "^0.24.1"
-    react-query "^3.5.10"
 
 js-sha3@0.8.0:
   version "0.8.0"
@@ -10939,7 +10929,7 @@ react-query@^2.26.3:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-react-query@^3.19.2, react-query@^3.5.10:
+react-query@^3.19.2:
   version "3.19.2"
   resolved "https://registry.npmjs.org/react-query/-/react-query-3.19.2.tgz#8ab70c9328835604d05919e3878fcce555603c0e"
   integrity sha512-YYQ+jZ4DaabnDWEbKCIvkouLWif2iPFgBIeKLPkUmhXM4cz+Kscb5Q7mz+U57Ip17tarhFiNwX86gWXM69ouQQ==
