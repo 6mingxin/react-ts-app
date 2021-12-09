@@ -1,65 +1,92 @@
-import { useState } from "react";
+import { useCallback, useReducer, useState } from "react"
+import { useMountedRef } from "./index"
 
 interface State<D> {
-  error: Error | null;
-  data: D | null;
-  stat: "idle" | "loading" | "error" | "success";
+  error: Error | null
+  data: D | null
+  stat: "idle" | "loading" | "error" | "success"
 }
 
 const defaultInitialState: State<null> = {
   stat: "idle",
   data: null,
   error: null,
-};
+}
 
 const defaultConfig = {
   throwOnError: false,
-};
+}
+
+const useSafeDispatch = <T>(dispatch: (...args: T[]) => void) => {
+  const mountedRef = useMountedRef()
+
+  return useCallback(
+    (...args: T[]) => (mountedRef.current ? dispatch(...args) : void 0),
+    [dispatch, mountedRef]
+  )
+}
 
 export const useAsync = <D>(
   initialState?: State<D>,
   initialConfig?: typeof defaultConfig
 ) => {
-  const config = { ...defaultConfig, initialConfig };
+  const config = { ...defaultConfig, initialConfig }
 
-  const [state, setState] = useState({
-    ...defaultInitialState,
-    ...initialState,
-  });
+  const [state, dispatch] = useReducer(
+    (state: State<D>, action: Partial<State<D>>) => ({ ...state, ...action }),
+    {
+      ...defaultInitialState,
+      ...initialState,
+    }
+  )
 
-  const setData = (data: D) =>
-    setState({
-      data,
-      stat: "success",
-      error: null,
-    });
-  const setError = (error: Error) =>
-    setState({
-      error,
-      stat: "error",
-      data: null,
-    });
+  const [retry, setRetry] = useState(() => () => {})
+  const safeDispatch = useSafeDispatch(dispatch)
+
+  const setData = useCallback(
+    (data: D) =>
+      safeDispatch({
+        data,
+        stat: "success",
+        error: null,
+      }),
+    [safeDispatch]
+  )
+  const setError = useCallback(
+    (error: Error) =>
+      safeDispatch({
+        error,
+        stat: "error",
+        data: null,
+      }),
+    [safeDispatch]
+  )
 
   //用来装饰异步请求，将请求结果处理成不同状态的函数
-  const run = (promise: Promise<D>) => {
-    if (!promise || !promise.then) {
-      throw new Error("请传入 Promise类型数据");
-    }
-    setState({
-      ...state,
-      stat: "loading",
-    });
-    return promise
-      .then((data) => {
-        setData(data);
-        return data;
+  const run = useCallback(
+    (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
+      if (!promise || !promise.then) {
+        throw new Error("请传入 Promise类型数据")
+      }
+      setRetry(() => () => {
+        console.log("set retry")
+        if (runConfig?.retry) {
+          run(runConfig?.retry(), runConfig)
+        }
       })
-      .catch((error) => {
-        setError(error);
-        if (config.throwOnError) return Promise.reject(error);
-        return error;
-      });
-  };
+      safeDispatch({ stat: "loading" })
+      return promise
+        .then((data) => {
+          return data
+        })
+        .catch((error) => {
+          setError(error)
+          if (config.throwOnError) return Promise.reject(error)
+          return error
+        })
+    },
+    [config.throwOnError, setData, setError, safeDispatch]
+  )
 
   return {
     isIdle: state.stat === "idle",
@@ -68,7 +95,8 @@ export const useAsync = <D>(
     isSuccess: state.stat === "success",
     run,
     setData,
+    retry,
     setError,
     ...state,
-  };
-};
+  }
+}
