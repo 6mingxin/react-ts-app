@@ -3,15 +3,17 @@ import { SearchPanel } from "./search-panel"
 import { List } from "./list"
 import { useDebounce, useDocumentTitle } from "utils"
 import styled from "@emotion/styled"
-import { Button, Typography } from "antd"
+import { Typography } from "antd"
 import { useProject } from "utils/project"
 import { useUsers } from "utils/user"
 import { useProjectsSearchParams } from "screens/project-list/util"
-import { Row } from "../../components/lib"
+import { ButtonNoPadding, Row } from "../../components/lib"
+import { projectListActions } from "./project-list.slice"
+import { useDispatch } from "react-redux"
 
-export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
+export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false)
-
+  const dispatch = useDispatch()
   const [param, setParam] = useProjectsSearchParams()
   const {
     isLoading,
@@ -24,7 +26,12 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     <Container>
       <Row between={true}>
         <h1>项目列表</h1>
-        {props.projectButton}
+        <ButtonNoPadding
+          onClick={() => dispatch(projectListActions.openProjectModal())}
+          type={"link"}
+        >
+          创建项目
+        </ButtonNoPadding>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
@@ -32,7 +39,6 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
       ) : null}
       <List
         refresh={retry}
-        projectButton={props.projectButton}
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
