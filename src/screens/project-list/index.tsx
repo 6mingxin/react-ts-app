@@ -47,7 +47,7 @@ export const ProjectListScreen = () => {
   )
 }
 //跟踪当前组件堆栈信息，解决hook造成的无限渲染问题
-ProjectListScreen.whyDidYouRender = true
+// ProjectListScreen.whyDidYouRender = true
 
 const Container = styled.div`
   padding: 3.2rem;
