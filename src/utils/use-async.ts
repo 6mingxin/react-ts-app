@@ -77,6 +77,7 @@ export const useAsync = <D>(
       safeDispatch({ stat: "loading" })
       return promise
         .then((data) => {
+          setData(data)
           return data
         })
         .catch((error) => {
