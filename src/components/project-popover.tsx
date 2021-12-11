@@ -3,27 +3,34 @@ import { useProject } from "../utils/project"
 import { Divider, List, Popover, Typography } from "antd"
 import styled from "@emotion/styled"
 import { ButtonNoPadding } from "./lib"
+import { useProjectModal } from "../screens/project-list/util"
 
+export const ProjectPopover = () => {
+  const { open } = useProjectModal()
+  const { data: projects } = useProject()
+  const pinnedProjects = projects?.filter((project) => project.pin)
+  const content = (
+    <ContentContainer>
+      <Typography.Text type={"secondary"}>收藏项目</Typography.Text>
+      <List>
+        {pinnedProjects?.map((project) => (
+          <List.Item>
+            <List.Item.Meta title={project.name} />
+          </List.Item>
+        ))}
+      </List>
+      <Divider />
+      <ButtonNoPadding onClick={open} type={"link"}>
+        创建项目
+      </ButtonNoPadding>
+    </ContentContainer>
+  )
 
-export const ProjectPopover = (props:{projectButton:JSX.Element}) => {
-  const {data:projects,isLoading} = useProject()
-  const pinnedProjects = projects?.filter(project => project.pin)
-  const content = <ContentContainer>
-    <Typography.Text type={"secondary"}>收藏项目</Typography.Text>
-    <List>
-      {
-        pinnedProjects?.map(project => <List.Item>
-          <List.Item.Meta title={project.name}/>
-        </List.Item>)
-      }
-    </List>
-    <Divider />
-    {props.projectButton}
-  </ContentContainer>
-
-  return <Popover placement={"bottom"} content={content}>
-    <span>项目</span>
-  </Popover>
+  return (
+    <Popover placement={"bottom"} content={content}>
+      <span>项目</span>
+    </Popover>
+  )
 }
 
 const ContentContainer = styled.div`
